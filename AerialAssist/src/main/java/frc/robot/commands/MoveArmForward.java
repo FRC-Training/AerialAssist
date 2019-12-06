@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -9,14 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap.ArmState;
 
-/**
- * An example command.  You can replace me with your own command.
- */
-public class ExampleCommand extends Command {
-  public ExampleCommand() {
+public class MoveArmForward extends Command {
+  private ArmState armState;
+  public MoveArmForward(ArmState set) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.m_subsystem);
+    // eg. requires(chassis);
+    requires(Robot.arms);
+    this.armState = set;
   }
 
   // Called just before this Command runs the first time
@@ -27,6 +28,7 @@ public class ExampleCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.arms.setMotorSpeed(armState);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,11 +40,13 @@ public class ExampleCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.arms.setMotorSpeed(ArmState.ARM_STOP);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.arms.setMotorSpeed(ArmState.ARM_STOP);
   }
 }
