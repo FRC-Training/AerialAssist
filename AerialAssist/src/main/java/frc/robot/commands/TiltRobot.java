@@ -9,14 +9,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap.TiltState;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-  public ExampleCommand() {
+public class TiltRobot extends Command {
+  private TiltState state;
+  public TiltRobot(TiltState state) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_subsystem);
+    this.state = state;
   }
 
   // Called just before this Command runs the first time
@@ -44,5 +47,6 @@ public class ExampleCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    
   }
 }

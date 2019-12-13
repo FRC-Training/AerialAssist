@@ -7,6 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.RobotMap.TiltState;
+import frc.robot.commands.TiltRobot;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -39,4 +44,13 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+  private Joystick joystick1;
+  private JoystickButton joystickButton4;
+  private JoystickButton joystickButton5;
+  public OI() {
+    joystick1 = new Joystick(0);
+    joystickButton4 = new JoystickButton(joystick1,4);
+    joystickButton4.whileHeld(new TiltRobot(TiltState.TILT_DOWN));
+    joystickButton5.whileHeld(new TiltRobot(TiltState.TILT_UP));
+  }
 }
