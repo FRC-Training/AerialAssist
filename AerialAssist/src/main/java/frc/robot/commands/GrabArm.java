@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.RobotMap.ArmGrabState;
-public class OpenArm extends Command {
-  public OpenArm() {
+public class GrabArm extends Command {
+  public GrabArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
       requires(Robot.arms);
