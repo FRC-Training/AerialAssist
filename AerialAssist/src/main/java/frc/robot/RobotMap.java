@@ -29,5 +29,9 @@ public class RobotMap {
     ARM_BACKWARD,
     ARM_STOP
   };
+  public enum ArmPneumaticState {
+    ARM_OPEN,
+    ARM_CLOSE,
+  };
 }
 

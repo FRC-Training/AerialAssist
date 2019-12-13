@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -22,16 +23,21 @@ public class Arms extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private ArmState armState;
+  private ArmPneumaticState pState;
   private double setSpeed;
   private TalonSRX armMotor;
   private DigitalInput limitSwitchIn;
   private DigitalInput limitSwitchOut;
+  private DoubleSolenoid solenoidLeft;
+  private DoubleSolenoid solenoidRight;
   public Arms() {
     setSpeed = 0;
     armState = ArmState.ARM_STOP;
     armMotor = new TalonSRX(RobotMap.armMotorID);
     limitSwitchIn = new DigitalInput(0);
     limitSwitchOut = new DigitalInput(1);
+    solenoidLeft = new DoubleSolenoid(0,1);
+    solenoidRight = new DoubleSolenoid(2,3);
   }
   @Override
   public void initDefaultCommand() {
@@ -59,6 +65,17 @@ public class Arms extends Subsystem {
     else if(limitSwitchOut.get() && armState == ArmState.ARM_FORWARD) {
       setSpeed = 0;
     }
+  }
+  public void changeSolenoid(ArmPneumaticState state) {
+      this.pState = state;
+      if(this.pState == ArmPneumaticState.ARM_CLOSE) {
+        solenoidLeft.set(DoubleSolenoid.Value.kReverse);
+        solenoidRight.set(DoubleSolenoid.Value.kReverse);
+      }
+      else if(this.pState == ArmPneumaticState.ARM_OPEN) {
+        solenoidLeft.set(DoubleSolenoid.Value.kForward);
+        solenoidRight.set(DoubleSolenoid.Value.kForward);
+      }
   }
 
 }

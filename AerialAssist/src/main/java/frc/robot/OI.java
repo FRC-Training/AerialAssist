@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap.ArmState;
+import frc.robot.RobotMap.ArmPneumaticState;
+import frc.robot.commands.OpenArm;
 import frc.robot.commands.MoveArmForward;
 
 /**
@@ -53,6 +55,7 @@ public class OI {
       joystickButton2 = new JoystickButton(joystick1,1);
       joystickButton1.whileHeld(new MoveArmForward(ArmState.ARM_FORWARD));
       joystickButton1.whileHeld(new MoveArmForward(ArmState.ARM_BACKWARD));
+      joystickButton2.whenPressed(new OpenArm(ArmPneumaticState.ARM_OPEN));
     }
     public Joystick getJoystick() {
       return joystick1;
