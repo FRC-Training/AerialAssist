@@ -29,7 +29,7 @@ public class RobotMap {
     ARM_BACKWARD,
     ARM_STOP
   };
-  public enum ArmPneumaticState {
+  public enum ArmGrabState {
     ARM_OPEN,
     ARM_CLOSE,
   };

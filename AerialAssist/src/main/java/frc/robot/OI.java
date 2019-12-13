@@ -10,10 +10,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.RobotMap.ArmState;
-import frc.robot.RobotMap.ArmPneumaticState;
+import frc.robot.RobotMap.ArmGrabState;
 import frc.robot.commands.OpenArm;
 import frc.robot.commands.MoveArmForward;
-
+import frc.robot.RobotMap;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -49,13 +49,15 @@ public class OI {
   private Joystick joystick1;
   private JoystickButton joystickButton1;
   private JoystickButton joystickButton2;
+  private JoystickButton joystickButton3;
     public OI() {
       joystick1 = new Joystick(0);
       joystickButton1 = new JoystickButton(joystick1,0);
       joystickButton2 = new JoystickButton(joystick1,1);
+      joystickButton3 = new JoystickButton(joystick1,2);
       joystickButton1.whileHeld(new MoveArmForward(ArmState.ARM_FORWARD));
-      joystickButton1.whileHeld(new MoveArmForward(ArmState.ARM_BACKWARD));
-      joystickButton2.whenPressed(new OpenArm(ArmPneumaticState.ARM_OPEN));
+      joystickButton2.whileHeld(new MoveArmForward(ArmState.ARM_BACKWARD));
+      joystickButton3.whenPressed(new OpenArm());
     }
     public Joystick getJoystick() {
       return joystick1;

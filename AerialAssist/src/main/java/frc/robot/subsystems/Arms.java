@@ -22,8 +22,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Arms extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+  public ArmGrabState currentGrabState; 
   private ArmState armState;
-  private ArmPneumaticState pState;
+  private ArmGrabState pState;
   private double setSpeed;
   private TalonSRX armMotor;
   private DigitalInput limitSwitchIn;
@@ -32,6 +33,7 @@ public class Arms extends Subsystem {
   private DoubleSolenoid solenoidRight;
   public Arms() {
     setSpeed = 0;
+    currentGrabState =  ArmGrabState.ARM_CLOSE;
     armState = ArmState.ARM_STOP;
     armMotor = new TalonSRX(RobotMap.armMotorID);
     limitSwitchIn = new DigitalInput(0);
@@ -66,16 +68,25 @@ public class Arms extends Subsystem {
       setSpeed = 0;
     }
   }
-  public void changeSolenoid(ArmPneumaticState state) {
+  public void changeSolenoid(ArmGrabState state) {
       this.pState = state;
-      if(this.pState == ArmPneumaticState.ARM_CLOSE) {
+      if(this.pState == ArmGrabState.ARM_CLOSE) {
         solenoidLeft.set(DoubleSolenoid.Value.kReverse);
         solenoidRight.set(DoubleSolenoid.Value.kReverse);
       }
-      else if(this.pState == ArmPneumaticState.ARM_OPEN) {
+      else if(this.pState == ArmGrabState.ARM_OPEN) {
         solenoidLeft.set(DoubleSolenoid.Value.kForward);
         solenoidRight.set(DoubleSolenoid.Value.kForward);
       }
+  }
+  public ArmGrabState flipState() {
+    if(currentGrabState == ArmGrabState.ARM_CLOSE) {
+      currentGrabState = ArmGrabState.ARM_OPEN;
+    }
+    else if(currentGrabState == ArmGrabState.ARM_OPEN) {
+      currentGrabState = ArmGrabState.ARM_CLOSE;
+    }
+    return currentGrabState;
   }
 
 }

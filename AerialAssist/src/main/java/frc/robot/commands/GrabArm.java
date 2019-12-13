@@ -8,16 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.RobotMap.ArmPneumaticState;
-import frc.robot.RobotMap.ArmPneumaticState;
-import frc.robot.RobotMap.ArmPneumaticState;
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+import frc.robot.RobotMap.ArmGrabState;
 public class OpenArm extends Command {
-  private ArmState armState;
-  public MoveArmForward(ArmState set) {
+  public OpenArm() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.arms);
-    this.armState = set;
+      requires(Robot.arms);
   }
 
   // Called just before this Command runs the first time
@@ -27,14 +25,15 @@ public class OpenArm extends Command {
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-    
+  protected void execute() { 
+    ArmGrabState grab = Robot.arms.flipState();
+    Robot.arms.changeSolenoid(grab);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
@@ -46,6 +45,7 @@ public class OpenArm extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-
+    
   }
+  
 }
