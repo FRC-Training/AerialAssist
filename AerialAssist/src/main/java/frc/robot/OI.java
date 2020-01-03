@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.MoveHammer;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -39,4 +43,11 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+  private Joystick joystick1;
+  private JoystickButton joystickButton5;
+  public OI() {
+    joystick1 = new Joystick(0);
+    joystickButton5 = new JoystickButton(joystick1, 5);
+    joystickButton5.whileHeld(new MoveHammer(1)); 
+  }
 }
